@@ -45,7 +45,8 @@ pip install beautifulsoup4 lxml pandas
 * 인증 json 내 email 을 사용할 스프레드시트의 공유 이메일에 추가
 ![step02_08](./fig/step02-08.png)
 ![step02_09](./fig/step02-09.png)
-## code
+## Code
+### 초기 셋팅
 * import 하고..
 ~~~
 import gspread
@@ -69,6 +70,49 @@ doc = gs.open_by_url('https://docs.google.com/spreadsheets/d/xxxxxxxx/edit#gid=0
 ![step03_01](./fig/step03-01.png)
 ![step03_02](./fig/step03-02.png)
 
+### 읽어오기
+* worksheet 불러오기
+~~~
+worksheet = doc.worksheet('test')
+~~~
+* Cell 하나 읽어오기
+~~~
+cell_data = worksheet.acell('B2').value
+~~~
+* Row, Column, 범위 읽어오기
+~~~
+row_data = worksheet.row_values(2) # 2번째 Row
+column_data = worksheet.col_values(1) # 1번째 Column
+range_list = worksheet.range('A1:D3') # 범위
+for cell in range_list:
+    print(cell.value)
+~~~
+
+### 쓰기
+* worksheet 불러오기
+~~~
+worksheet = doc.worksheet('test')
+~~~
+* Cell 단위 update
+~~~
+worksheet.update_acell('B1', 'b1 updated')
+~~~
+* 행 추가
+~~~
+worksheet.append_row(['new1', 'new2', 'new3', 'new4']) # 위 행에 맞춰서 row를 하나 추가
+worksheet.insert_row(['new5', 'new6', 'new7', 'new8'], 5) # 특정 행에 처음부터 row를 추가
+~~~
+![step04_01](./fig/step04-01.png)
+* 워크시트 추가
+~~~
+worksheet_0 = doc.add_worksheet(title='시트1', rows='500', cols='500')
+~~~
+
+### 새로운 스프레드시트 생성
+* 이건 테스트 안 해 보긴 했는데...
+~~~
+gc = gs.create('새로운 테스트')
+~~~
 
 
 ## 사용 방법
