@@ -32,6 +32,44 @@ pip install beautifulsoup4 lxml pandas
 ## 인증
 * [GCP, Google Cloud Platform 에서 프로젝트 만들기](https://console.cloud.google.com/projectselector2/apis)
 ![GCP_create_project](./fig/gcp_create_project.png)
+* 생성한 프로젝트 선택하고
+![step02_01](./fig/step02-01.png)
+![step02_02](./fig/step02-02.png)
+![step02_03](./fig/step02-03.png)
+![step02_04](./fig/step02-04.png)
+* 다 하고 나면 key를 생성하고 다운 (json file일 떨어짐)
+![step02_05](./fig/step02-05.png)
+![step02_06](./fig/step02-06.png)
+* json file일 떨어짐
+![step02_07](./fig/step02-07.png)
+* 인증 json 내 email 을 사용할 스프레드시트의 공유 이메일에 추가
+![step02_08](./fig/step02-08.png)
+![step02_09](./fig/step02-09.png)
+## code
+* import 하고..
+~~~
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+~~~
+* scope 정의해 주고
+~~~
+scope = ['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']
+~~~
+* 인증 넣어주고
+~~~
+credentials = ServiceAccountCredentials.from_json_keyfile_name('./data/다운받은인증파일.json', scope)
+gs = gspread.authorize(credentials)
+~~~
+* url로 연결
+~~~
+doc = gs.open_by_url('https://docs.google.com/spreadsheets/d/xxxxxxxx/edit#gid=0')
+~~~
+* 에러가 나면 아래 링크 클릭해서 인증 함 해줘야함.
+![step03_01](./fig/step03-01.png)
+![step03_02](./fig/step03-02.png)
+
+
 
 ## 사용 방법
 * [Google Developers 공식 사이트 tutorial](https://developers.google.com/sheets/api/quickstart/python)
