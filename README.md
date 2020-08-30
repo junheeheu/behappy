@@ -109,17 +109,22 @@ worksheet_0 = doc.add_worksheet(title='시트1', rows='500', cols='500')
 ~~~
 
 ### 새로운 스프레드시트 생성
-* 이건 테스트 안 해 보긴 했는데...
+* 생성하고 나서 권한 문제로 share를 해 주면 잘 보임.
 ~~~
-gc = gs.create('새로운 테스트')
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+scope = ['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']
+
+credentials = ServiceAccountCredentials.from_json_keyfile_name('./data/behappy-287913-cc1952405a61.json', scope)
+
+gtest = gs.create('새로운 테스트')
+# 권한이 없기 때문에 share를 해 줘야 함.
+gtest.share('junhee.heu@gmail.com', perm_type='user', role='owner')
 ~~~
-
-
-## 사용 방법
-* [Google Developers 공식 사이트 tutorial](https://developers.google.com/sheets/api/quickstart/python)
-    * 인증까지는 이걸 보고 하면 됨.
-* [Google Sheet 사용 예제 git](https://github.com/gsuitedevs/python-samples)
-* [인증 정보](https://docs.google.com/document/d/1X5YvvzRfTSZ5FUzNDZRmeZh9pi8nLK5o6SamiU_iWbc/edit#)
+* 처음엔 문제가 발생해서... google drive 접근에 대한 허가를 해줘야 함. (아래 링크에서 enable)
+![step05_01](./fig/step05-01.png)
 
 ## 환경 설정
 * google api 관련 lib. 설치 필요
