@@ -56,3 +56,11 @@ backup/*
 gdrive/mystock-284001-c958e87470c6.json
 ref/*
 my_personal_info.py
+rim_result/srim.txt
+backup_*
+data/quantking/*
+result/*
+*.png
+data/*.pickle
+stock_util.py
+data/*.json
